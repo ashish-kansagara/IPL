@@ -1,6 +1,1 @@
-ElasticNet:
-  alpha:  0 
-  l1_ratio: 0 
-  max_iter: 100 
-  random_state: 42 
-  selection:  'random'
+RandomForestClassifier:

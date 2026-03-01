@@ -1,9 +1,9 @@
-from wineQT import logger
-from wineQT.pipeline.state1_data_injetion import DataIngestionTrainingPipeline
-from wineQT.pipeline.state2_data_validation import DatavalidationTrainingPipeline
-from wineQT.pipeline.state3_data_transformation import DataTransformationTrainingPipeline
-from wineQT.pipeline.state4_Model_Training import ModelTrainerTrainingPipeline
-from wineQT.pipeline.state5_Model_evaluation import ModelEvaluationTrainingPipeline
+from IPL import logger
+from IPL.pipeline.state1_data_injetion import DataIngestionTrainingPipeline
+from IPL.pipeline.state2_data_validation import DatavalidationTrainingPipeline
+from IPL.pipeline.state3_data_transformation import DataTransformationTrainingPipeline
+from IPL.pipeline.state4_Model_Training import ModelTrainerTrainingPipeline
+from IPL.pipeline.state5_Model_evaluation import ModelEvaluationTrainingPipeline
 STAGE_NAME="Data ingestion stage"
 try:
     logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")

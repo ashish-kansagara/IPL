@@ -5,9 +5,9 @@ with open("README.md","r",encoding="utf-8") as f:
     
 __version__="0.0.0"
 
-REPO_NAME="ml-project-implementation"
+REPO_NAME="IPL"
 AUTHOR_USER_NAME='ashish-kansagara'
-SRC_REPO="wineQT"
+SRC_REPO="IPL"
 AUTHOR_EMAIL="ashishkanashagara123@gmail.com"
 
 setuptools.setup(

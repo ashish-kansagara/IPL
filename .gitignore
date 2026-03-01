@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# IPL Project Specifics
+artifacts/            # Excludes your trained models (model.joblib, transformer.joblib)
+*.csv                 # Excludes your raw datasets (data.csv)
+*.pkl                 # Excludes any pickle files
+.ipynb_checkpoints/   # Excludes Jupyter notebook checkpoints

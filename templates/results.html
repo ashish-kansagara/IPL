@@ -1,95 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Prediction</title>
-        <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="static/css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/">Home</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
-<!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>-->
-<!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>-->
-<!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>-->
-<!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>-->
-                    </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Analysis | IPL Oracle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        <style>
+            .team-logo-img { 
+                width: 140px;          /* Increased size for better visibility */
+                height: 140px; 
+                object-fit: contain;   /* IMPORTANT: Keeps logo proportions perfect */
+                background: #ffffff;   /* Adds a clean white background if logo is transparent */
+                padding: 10px;
+                border-radius: 15px;   /* Rounded corners for the logo container */
+                filter: drop-shadow(0 5px 15px rgba(0,0,0,0.08)); /* Soft shadow */
+                transition: transform 0.3s ease; /* Smooth hover effect */
+            }
+
+            .team-logo-img:hover {
+                transform: scale(1.05); /* Slight zoom when you hover over the logo */
+            }
+
+            .vs-circle { ... }
+            .prob-bar { ... }
+
+            .team-logo-img { 
+                width: 120px; 
+                height: 120px; 
+                object-fit: contain; 
+    
+                background-color: white; /* Hides gray/white checkers by forcing a solid background */
+                border: 1px solid #eee;  /* Adds a subtle border so it looks like a clean card */
+    
+                border-radius: 12px;
+                padding: 5px;
+            }
+    </style>
+</head>
+<body style="background-color: #f8f9fa; font-family: 'Poppins', sans-serif;">
+
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="col-lg-10">
+            <div class="main-card p-4 p-md-5">
+                
+                <div class="header-section text-center mb-5">
+                    <h1 class="display-5 fw-bold" style="color: #2d3436;">WIN PROBABILITY</h1>
+                    <p class="text-muted fw-medium">Real-Time Match Scenario Analysis</p>
                 </div>
-            </div>
-        </nav>
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('static/assets/img/wine.gif')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Wine Quality</h1>
-                             <h1>{{prediction}}</h1>
-                            <span class="subheading"></span>
+
+                <div class="row align-items-center justify-content-center px-md-5">
+                    
+                    <div class="col-md-5 text-center mb-4 mb-md-0">
+                        <div class="team-card">
+                            <img src="{{ batting_logo }}" alt="{{ batting_team }}" class="team-logo-img">
+                            <h4 class="mt-3 mb-1 fw-bold" style="color: #2d3436;">{{ batting_team }}</h4>
+                            <div class="display-3 fw-bold text-success">{{ win }}%</div>
+                            <span class="badge bg-success-subtle text-success border border-success px-3 py-2">
+                                <i class="fa-solid fa-bat-ball me-1"></i> {{ batting_team }} | BATTING
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 d-none d-md-block text-center">
+                        <div class="vs-circle shadow">VS</div>
+                    </div>
+
+                    <div class="col-md-5 text-center">
+                        <div class="team-card">
+                            <img src="{{ bowling_logo }}" alt="{{ bowling_team }}" class="team-logo-img">
+                            <h4 class="mt-3 mb-1 fw-bold" style="color: #2d3436;">{{ bowling_team }}</h4>
+                            <div class="display-3 fw-bold text-danger">{{ loss }}%</div>
+                            <span class="badge bg-danger-subtle text-danger border border-danger px-3 py-2">
+                                <i class="fa-solid fa-circle-dot me-1"></i> {{ bowling_team }} | BOWLING
+                            </span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
 
-
-        <!-- Footer-->
-        <footer class="border-top">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/boktiarahmed73/">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://www.youtube.com/dswithbappy">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://github.com/entbappy">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="small text-center text-muted fst-italic"></div>
-                        <div class="small text-center text-muted fst-italic"></div>
+                <div class="analysis-section mt-5 px-md-5">
+                    <div class="prob-bar mb-2">
+                        <div class="prob-fill" id="fill-bar" style="width: {{ win }}%;"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between text-muted small px-1">
+                        <span><i class="fa-solid fa-chart-line me-1"></i> Favorite: <strong>{{ batting_team if win > loss else bowling_team }}</strong></span>
+                        <span>Confidence Level: High</span>
                     </div>
                 </div>
-            </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="static/js/scripts.js"></script>
-    </body>
+
+                <div class="text-center mt-5">
+                    <a href="/" class="btn btn-dark btn-lg px-5 py-3 rounded-pill shadow-sm text-decoration-none">
+                        <i class="fa-solid fa-rotate-left me-2"></i> PREDICT ANOTHER MATCH
+                    </a>
+                </div>
+
+            </div> 
+            <p class="text-center mt-4 text-muted small">© 2026 IPL Analytics Pro • Powered by Modular Intelligence</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

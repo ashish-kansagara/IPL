@@ -2,18 +2,18 @@ artifacts_root : artifacts
 
 data_ingestion:
   root_dir: artifacts/data_project
-  source_URL: https://github.com/ashish-kansagara/data/raw/refs/heads/main/wineQT.zip
-  local_data_file: artifacts/data_project/data_wineQT.zip
+  source_URL: https://github.com/ashish-kansagara/data/raw/refs/heads/main/processed_final_IPL_data.zip
+  local_data_file: artifacts/data_project/data_IPL.zip
   unzip_dir: artifacts/data_project
 
 data_validation:
   root_dir: artifacts/data_validation
-  unzip_data_dir: artifacts/data_project/wineQT.csv
+  unzip_data_dir: artifacts/data_project/processed_final_IPL_data.csv
   STATUS_FILE: artifacts/data_validation/status.txt
 
 data transformation:
   root_dir: artifacts/data_transformation
-  data_path: artifacts/data_project/wineQT.csv
+  data_path: artifacts/data_project/processed_final_IPL_data.csv
 
 model_trainer:
   root_dir: artifacts/model_trainer
