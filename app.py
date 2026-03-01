@@ -54,31 +54,24 @@ def predict():
 
             if overs > 20:
                 return "Error: Overs cannot exceed 20."
-
-            # 2. Cricket Over-Format Validation (n.0 to n.5)
-            # Logic: Extract the decimal part. If it's > 0.5, it's an invalid ball count.
             over_str = request.form['overs']
             if '.' in over_str:
                 decimal_part = int(over_str.split('.')[1])
                 if decimal_part > 5:
                     return f"Error: Invalid over format '{overs}'. Balls in an over cannot exceed 5 (use {int(overs)+1}.0 instead)."
 
-            # 3. Calculation Logic
             runs_left = target - score
             
-            # Convert overs to total balls correctly (e.g., 5.2 overs = 5*6 + 2 = 32 balls)
             over_full = int(overs)
             ball_count = int(round((overs - over_full) * 10))
             total_balls_bowled = (over_full * 6) + ball_count
             balls_left = 120 - total_balls_bowled
             
             wickets = 10 - wickets_out
-            
-            # CRR/RRR logic with safety checks
+   
             crr = score / overs if overs > 0 else 0
             rrr = (runs_left * 6) / balls_left if balls_left > 0 else 0
 
-            # 4. Dataframe and Prediction
             input_df = pd.DataFrame({
                 'batting_team': [batting_team],
                 'bowling_team': [bowling_team],
@@ -103,7 +96,7 @@ def predict():
             batting_logo = url_for('static', filename='images/' + team_image_map[bat_team])
             bowling_logo = url_for('static', filename='images/' + team_image_map[bowl_team])
 
-            # Passing team names to the template so your "Classy" UI shows them
+
             return render_template('results.html', 
                                 win=win_prob, 
                                 loss=loss_prob, 

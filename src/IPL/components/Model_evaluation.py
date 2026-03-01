@@ -18,30 +18,24 @@ class ModelEvaluation:
         acc = accuracy_score(actual, pred)
         precision = precision_score(actual, pred)
         recall = recall_score(actual, pred)
-        # Log Loss is crucial for probability-based models
+        
         loss = log_loss(actual, pred_proba) 
         
         return acc, precision, recall, loss
 
     def save_results(self):
-        # 1. Load test data
+        
         test_data = pd.read_csv(self.config.test_data_path)
         
-        # 2. Load the trained pipeline (pipe.pkl)
         model = joblib.load(self.config.model_path)
 
-        # 3. Separate Features and Target using schema config
         test_x = test_data.drop([self.config.target_column], axis=1)
         test_y = test_data[self.config.target_column]
-        
-        # 4. Generate Predictions (matching Untitled.ipynb cell 241)
+
         predictions = model.predict(test_x)
-        
-        # 5. Generate Probabilities (matching Untitled.ipynb cell 243)
-        # Required for Log Loss evaluation
+       
         pred_proba = model.predict_proba(test_x)
 
-        # 6. Calculate Metrics
         (acc, precision, recall, loss) = self.eval_metrics(test_y, predictions, pred_proba)
         
         scores = {
