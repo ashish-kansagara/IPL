@@ -23,11 +23,4 @@ setuptools.setup(
     "Bug Tracker": f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}/issues"},
     package_dir={"":"src"},
     packages=setuptools.find_packages(where="src")
-    install_requires=[
-        'gunicorn',
-        'flask',
-        'pandas',
-        'numpy',
-        'scikit-learn'
-    ]
 )
